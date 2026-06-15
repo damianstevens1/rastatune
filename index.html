@@ -1,0 +1,163 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RastaTune Guitar Tuner</title>
+    <meta name="description" content="RastaTune is a playable six-string guitar tuner prototype with live mic pitch detection and reggae fire feedback.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rastatune-preview.netlify.app/">
+    <meta property="og:title" content="RastaTune Guitar Tuner">
+    <meta property="og:description" content="A playable mobile guitar tuner prototype with live mic detection, six strings, and reggae fire feedback.">
+    <meta property="og:image" content="https://rastatune-preview.netlify.app/assets/social-preview.png?v=20260613-rasta-generated">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="RastaTune guitar tuner preview with fictional reggae-inspired character and neon tuning meter.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="RastaTune Guitar Tuner">
+    <meta name="twitter:description" content="A playable mobile guitar tuner prototype with live mic detection, six strings, and reggae fire feedback.">
+    <meta name="twitter:image" content="https://rastatune-preview.netlify.app/assets/social-preview.png?v=20260613-rasta-generated">
+    <link rel="stylesheet" href="style.css?v=rasta-auto-mic-20260615">
+  </head>
+  <body>
+    <main class="app-shell" data-state="perfect">
+      <header class="topbar" aria-label="RastaTune Guitar Tuner">
+        <img class="logo" src="assets/logo-transparent.png" alt="">
+        <div class="top-actions">
+          <button class="icon-button" id="micButton" type="button" aria-label="Start microphone tuner">Mic</button>
+          <button class="icon-button" id="muteButton" type="button" aria-label="Mute sound effects" aria-pressed="false">SFX</button>
+        </div>
+      </header>
+
+      <section class="hero-panel">
+        <div class="character-stage" id="characterStage" role="img" aria-label="Fictional reggae-inspired tuner character">
+          <div class="character-rig" aria-hidden="true">
+            <img id="characterFrameA" class="character-frame frame-a is-visible" src="assets/rasta-character-base.png" alt="">
+            <img id="characterFrameB" class="character-frame frame-b" src="assets/rasta-character-base.png" alt="">
+            <div class="flame-system">
+              <span class="sprite-glow"></span>
+              <span class="flame-sprite"></span>
+              <span class="spark spark-one"></span>
+              <span class="spark spark-two"></span>
+              <span class="spark spark-three"></span>
+            </div>
+          </div>
+          <div class="stage-glow" aria-hidden="true"></div>
+          <div class="smoke smoke-one" aria-hidden="true"></div>
+          <div class="smoke smoke-two" aria-hidden="true"></div>
+        </div>
+
+        <div class="tune-overlay">
+          <span class="micro-label">String Coach</span>
+          <strong id="proximityText">Locked on Low E</strong>
+          <p><span id="targetOverlay">Target Low E</span> &middot; <span id="detectedNoteText">Detected E2</span></p>
+        </div>
+
+        <div class="readout-card">
+          <div class="string-lockup">
+            <span class="micro-label">Detected String</span>
+            <div class="string-row">
+              <strong id="selectedNote">E</strong>
+              <span id="selectedOctave">2</span>
+              <em id="selectedHz">82.41 Hz</em>
+            </div>
+            <span id="selectedName" class="selected-name">Low E</span>
+          </div>
+
+          <div class="state-line">
+            <span class="state-dot" id="stateDot"></span>
+            <div>
+              <h1 id="stateTitle">Perfect Tune</h1>
+              <p id="directionText">Perfect Tune</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mode-row" aria-label="Tuner mode">
+        <button class="mode-chip active" id="autoButton" type="button">Auto Detect</button>
+        <span id="lockStatus">Waiting for a clean string pluck</span>
+        <span class="auto-sequence">Listens for Low E -> A -> D -> G -> B -> High E</span>
+      </section>
+
+      <section class="string-pad" aria-label="Manual string override">
+        <button class="string-button active" type="button" data-string="E2">
+          <strong>E</strong>
+          <span>Low E</span>
+          <em>82.41</em>
+        </button>
+        <button class="string-button" type="button" data-string="A2">
+          <strong>A</strong>
+          <span>A</span>
+          <em>110.00</em>
+        </button>
+        <button class="string-button" type="button" data-string="D3">
+          <strong>D</strong>
+          <span>D</span>
+          <em>146.83</em>
+        </button>
+        <button class="string-button" type="button" data-string="G3">
+          <strong>G</strong>
+          <span>G</span>
+          <em>196.00</em>
+        </button>
+        <button class="string-button" type="button" data-string="B3">
+          <strong>B</strong>
+          <span>B</span>
+          <em>246.94</em>
+        </button>
+        <button class="string-button" type="button" data-string="E4">
+          <strong>E</strong>
+          <span>High E</span>
+          <em>329.63</em>
+        </button>
+      </section>
+
+      <section class="meter-panel" aria-label="Tuning meter">
+        <div class="meter-labels">
+          <span>-50</span>
+          <span>0</span>
+          <span>+50</span>
+        </div>
+        <div class="arc-meter">
+          <svg viewBox="0 0 220 124" role="img" aria-label="Rainbow cents meter">
+            <path class="arc arc-red-left" d="M 22 104 A 88 88 0 0 1 41 49"></path>
+            <path class="arc arc-orange-left" d="M 41 49 A 88 88 0 0 1 78 22"></path>
+            <path class="arc arc-yellow-left" d="M 78 22 A 88 88 0 0 1 101 17"></path>
+            <path class="arc arc-green" d="M 101 17 A 88 88 0 0 1 119 17"></path>
+            <path class="arc arc-yellow-right" d="M 119 17 A 88 88 0 0 1 142 22"></path>
+            <path class="arc arc-orange-right" d="M 142 22 A 88 88 0 0 1 179 49"></path>
+            <path class="arc arc-red-right" d="M 179 49 A 88 88 0 0 1 198 104"></path>
+          </svg>
+          <div class="arc-needle" id="arcNeedle" aria-hidden="true"></div>
+          <div class="arc-pivot" aria-hidden="true"></div>
+        </div>
+        <div class="readings-grid">
+          <div>
+            <span class="micro-label">Detected</span>
+            <strong id="frequencyText">82.41 Hz</strong>
+          </div>
+          <div>
+            <span class="micro-label">Cents</span>
+            <strong id="centsText">+0.0</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="demo-panel">
+        <div class="demo-header">
+          <div>
+            <span class="micro-label">No-Mic Preview</span>
+            <strong>Demo cents slider</strong>
+          </div>
+          <button class="demo-reset" id="resetDemo" type="button">Perfect</button>
+        </div>
+        <input id="demoSlider" class="demo-slider" type="range" min="-50" max="50" step="1" value="0" aria-label="Demo cents off target">
+      </section>
+
+      <p class="status-text" id="statusText">Requesting microphone access for live tuning.</p>
+    </main>
+
+    <script src="script.js?v=rasta-auto-mic-20260615"></script>
+  </body>
+</html>

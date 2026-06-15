@@ -1,0 +1,11 @@
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+
+# Local QA/browser captures
+qa/
+screenshots/
+chrome-profile/
+*.tmp
+
