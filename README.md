@@ -30,3 +30,4 @@ This repo is Netlify-ready as a static site. No build command is required. Publi
 
 This is currently a static web app. To ship through the Apple App Store, wrap it in a native iOS shell using Xcode/WKWebView or a wrapper such as Capacitor, then handle App Store microphone permission copy in the native project.
 
+The layout is tuned for iPhone-width WebView containers from 375px through 430px wide and uses `viewport-fit=cover` plus safe-area-aware padding for native iOS wrappers.

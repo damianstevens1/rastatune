@@ -2,7 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#020302">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
     <title>RastaTune Guitar Tuner</title>
     <meta name="description" content="RastaTune is a playable six-string guitar tuner prototype with live mic pitch detection and reggae fire feedback.">
     <meta property="og:type" content="website">
@@ -17,12 +21,12 @@
     <meta name="twitter:title" content="RastaTune Guitar Tuner">
     <meta name="twitter:description" content="A playable mobile guitar tuner prototype with live mic detection, six strings, and reggae fire feedback.">
     <meta name="twitter:image" content="https://rastatune-preview.netlify.app/assets/social-preview.png?v=20260613-rasta-generated">
-    <link rel="stylesheet" href="style.css?v=rasta-auto-mic-20260615">
+    <link rel="stylesheet" href="style.css?v=rasta-iphone-safe-20260617">
   </head>
   <body>
     <main class="app-shell" data-state="perfect">
       <header class="topbar" aria-label="RastaTune Guitar Tuner">
-        <img class="logo" src="assets/logo-transparent.png" alt="">
+        <img class="logo" src="assets/logo-iphone-safe.png" alt="">
         <div class="top-actions">
           <button class="icon-button" id="micButton" type="button" aria-label="Start microphone tuner">Mic</button>
           <button class="icon-button" id="muteButton" type="button" aria-label="Mute sound effects" aria-pressed="false">SFX</button>
@@ -158,6 +162,6 @@
       <p class="status-text" id="statusText">Requesting microphone access for live tuning.</p>
     </main>
 
-    <script src="script.js?v=rasta-auto-mic-20260615"></script>
+    <script src="script.js?v=rasta-iphone-safe-20260617"></script>
   </body>
 </html>
