@@ -182,7 +182,7 @@ button {
 .logo {
   position: relative;
   z-index: 1;
-  width: min(100%, clamp(228px, 64vw, 276px));
+  width: min(100%, clamp(238px, 66vw, 288px));
   height: auto;
   display: block;
   object-fit: contain;
@@ -1040,7 +1040,7 @@ h1 {
   }
 
   .logo {
-    width: min(100%, 220px);
+    width: min(100%, 228px);
   }
 
   .top-actions {
@@ -1086,7 +1086,7 @@ h1 {
   }
 
   .logo {
-    width: min(100%, 244px);
+    width: min(100%, 258px);
   }
 
   .top-actions {

@@ -2,10 +2,10 @@ node_modules/
 .DS_Store
 Thumbs.db
 *.log
+.netlify/
 
 # Local QA/browser captures
 qa/
 screenshots/
 chrome-profile/
 *.tmp
-
