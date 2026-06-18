@@ -1014,20 +1014,20 @@ h1 {
 @keyframes perfectHeadBob {
   0%,
   100% {
-    transform: translateX(-8px) translateY(0) rotate(-3.6deg) scale(1.024);
+    transform: translateX(-5px) translateY(0) scale(1.018);
   }
   50% {
-    transform: translateX(8px) translateY(3px) rotate(3.6deg) scale(1.03);
+    transform: translateX(5px) translateY(2px) scale(1.024);
   }
 }
 
 @keyframes characterSway {
   0%,
   100% {
-    transform: translateX(-6px) translateY(0) rotate(-2.5deg) scale(1.014);
+    transform: translateX(-4px) translateY(0) scale(1.012);
   }
   50% {
-    transform: translateX(6px) translateY(2px) rotate(2.5deg) scale(1.02);
+    transform: translateX(4px) translateY(2px) scale(1.016);
   }
 }
 
@@ -1321,13 +1321,15 @@ h1 {
   }
 
   .topbar {
-    min-height: 66px;
+    min-height: 74px;
     padding: 5px 0;
-    margin-bottom: 0;
+    margin-bottom: 4px;
+    align-items: center;
   }
 
   .logo {
-    width: min(100%, clamp(220px, 58vw, 252px));
+    width: min(100%, clamp(214px, 55vw, 240px));
+    transform: translateY(2px);
   }
 
   .icon-button,
@@ -1344,7 +1346,7 @@ h1 {
   }
 
   .character-stage {
-    aspect-ratio: 2.28 / 1;
+    aspect-ratio: 1.98 / 1;
   }
 
   .tune-overlay {
@@ -1519,15 +1521,15 @@ h1 {
 
 @media (max-width: 390px) and (max-height: 820px) {
   .topbar {
-    min-height: 60px;
+    min-height: 68px;
   }
 
   .logo {
-    width: min(100%, 224px);
+    width: min(100%, 214px);
   }
 
   .character-stage {
-    aspect-ratio: 2.56 / 1;
+    aspect-ratio: 2 / 1;
   }
 
   .arc-meter {
