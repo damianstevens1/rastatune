@@ -298,8 +298,9 @@ button {
   z-index: 1;
   pointer-events: none;
   transform-origin: 58% 36%;
-  animation: characterSway 3.05s ease-in-out infinite;
-  will-change: transform;
+  animation: none;
+  transform: none;
+  will-change: auto;
 }
 
 .character-frame {
@@ -356,7 +357,7 @@ button {
 }
 
 .app-shell[data-state="perfect"] .character-rig {
-  animation: perfectHeadBob 1.45s ease-in-out infinite;
+  animation: none;
 }
 
 .app-shell[data-state="perfect"] .character-frame {
