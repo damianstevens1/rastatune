@@ -771,8 +771,8 @@ function shouldFitScreen() {
 function measureViewport() {
   const viewport = window.visualViewport;
   return {
-    width: viewport?.width || window.innerWidth,
-    height: viewport?.height || window.innerHeight,
+    width: Math.max(window.innerWidth, viewport?.width || 0),
+    height: Math.max(window.innerHeight, viewport?.height || 0),
   };
 }
 
@@ -793,15 +793,15 @@ function applyScreenFit() {
   window.requestAnimationFrame(() => {
     const viewport = measureViewport();
     const rect = app.getBoundingClientRect();
-    const horizontalGutter = 18;
-    const verticalGutter = 14;
+    const horizontalGutter = 10;
+    const verticalGutter = 10;
     const widthScale = (viewport.width - horizontalGutter) / rect.width;
     const heightScale = (viewport.height - verticalGutter) / rect.height;
-    const scale = clamp(Math.min(widthScale, heightScale, 1), 0.58, 1);
+    const scale = clamp(Math.min(widthScale, heightScale, 1.06), 0.58, 1.06);
     const offset = Math.max(0, (viewport.height - rect.height * scale) / 2);
 
     app.style.setProperty("--fit-scale", scale.toFixed(4));
-    app.style.setProperty("--fit-offset-y", `${Math.min(offset, 20).toFixed(1)}px`);
+    app.style.setProperty("--fit-offset-y", `${Math.min(offset, 14).toFixed(1)}px`);
   });
 }
 
