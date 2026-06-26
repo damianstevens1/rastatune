@@ -752,6 +752,7 @@ setMode(true);
 updateTarget(lockedKey);
 const queryParams = new URLSearchParams(window.location.search);
 const demoCentsParam = queryParams.get("cents");
+const screenFitPreference = queryParams.get("fit");
 if (demoCentsParam !== null) {
   const demoCents = clamp(Number(demoCentsParam), -50, 50);
   if (Number.isFinite(demoCents)) {
@@ -759,16 +760,85 @@ if (demoCentsParam !== null) {
   }
 }
 
+let fitFrame = null;
+
+function shouldFitScreen() {
+  if (screenFitPreference === "off") return false;
+  if (screenFitPreference === "screen" || screenFitPreference === "on") return true;
+  return window.matchMedia("(max-width: 520px)").matches;
+}
+
+function measureViewport() {
+  const viewport = window.visualViewport;
+  return {
+    width: viewport?.width || window.innerWidth,
+    height: viewport?.height || window.innerHeight,
+  };
+}
+
+function applyScreenFit() {
+  if (!shouldFitScreen()) {
+    document.documentElement.classList.remove("fit-screen");
+    document.body.classList.remove("fit-screen");
+    app.style.removeProperty("--fit-scale");
+    app.style.removeProperty("--fit-offset-y");
+    return;
+  }
+
+  document.documentElement.classList.add("fit-screen");
+  document.body.classList.add("fit-screen");
+  app.style.setProperty("--fit-scale", "1");
+  app.style.setProperty("--fit-offset-y", "0px");
+
+  window.requestAnimationFrame(() => {
+    const viewport = measureViewport();
+    const rect = app.getBoundingClientRect();
+    const horizontalGutter = 18;
+    const verticalGutter = 14;
+    const widthScale = (viewport.width - horizontalGutter) / rect.width;
+    const heightScale = (viewport.height - verticalGutter) / rect.height;
+    const scale = clamp(Math.min(widthScale, heightScale, 1), 0.58, 1);
+    const offset = Math.max(0, (viewport.height - rect.height * scale) / 2);
+
+    app.style.setProperty("--fit-scale", scale.toFixed(4));
+    app.style.setProperty("--fit-offset-y", `${Math.min(offset, 20).toFixed(1)}px`);
+  });
+}
+
+function scheduleScreenFit() {
+  if (fitFrame) {
+    window.cancelAnimationFrame(fitFrame);
+  }
+  fitFrame = window.requestAnimationFrame(() => {
+    fitFrame = null;
+    applyScreenFit();
+  });
+}
+
+window.addEventListener("resize", scheduleScreenFit);
+window.addEventListener("orientationchange", () => {
+  window.setTimeout(scheduleScreenFit, 120);
+});
+window.visualViewport?.addEventListener("resize", scheduleScreenFit);
+window.visualViewport?.addEventListener("scroll", scheduleScreenFit);
+document.fonts?.ready?.then(scheduleScreenFit);
+document.querySelectorAll("img").forEach((img) => {
+  img.addEventListener("load", scheduleScreenFit, { once: true });
+});
+
 async function bootTuner() {
   if (demoCentsParam !== null) {
     useDemoValue("demo");
+    scheduleScreenFit();
     return;
   }
 
   useDemoValue("idle");
+  scheduleScreenFit();
 
   if (queryParams.get("preview") === "off" || queryParams.get("mic") === "off") {
     statusText.textContent = "Ready without mic. Tap Mic for live tuning.";
+    scheduleScreenFit();
     return;
   }
 
@@ -776,6 +846,9 @@ async function bootTuner() {
   if (!started) {
     startAttractLoop();
   }
+  scheduleScreenFit();
 }
 
 bootTuner();
+scheduleScreenFit();
+window.setTimeout(scheduleScreenFit, 300);

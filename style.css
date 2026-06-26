@@ -1320,7 +1320,10 @@ h1 {
       max(10px, calc(env(safe-area-inset-right, 0px) + 10px))
       max(8px, calc(env(safe-area-inset-bottom, 0px) + 8px))
       max(10px, calc(env(safe-area-inset-left, 0px) + 10px));
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
   }
 
   .topbar {
@@ -1473,8 +1476,8 @@ h1 {
   }
 
   .meter-panel {
-    flex: 1 1 auto;
-    min-height: 0;
+    flex: 0 0 auto;
+    min-height: 148px;
     margin-top: 6px;
     padding: 7px 9px;
   }
@@ -1590,6 +1593,7 @@ h1 {
 
   .meter-panel {
     margin-top: 5px;
+    min-height: 132px;
     padding: 5px 7px;
   }
 
@@ -1625,6 +1629,7 @@ h1 {
   }
 
   .meter-panel {
+    min-height: 140px;
     padding-bottom: 8px;
   }
 
@@ -1638,5 +1643,149 @@ h1 {
 
   .readings-grid strong {
     font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 520px) {
+  html.fit-screen,
+  body.fit-screen {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    background: #000;
+  }
+
+  body.fit-screen {
+    display: grid;
+    place-items: start center;
+    padding: 0;
+    overscroll-behavior: none;
+  }
+
+  body.fit-screen .app-shell {
+    width: min(430px, calc(100vw - 18px));
+    max-width: min(430px, calc(100vw - 18px));
+    height: auto;
+    min-height: 0;
+    margin: var(--fit-offset-y, 0px) auto 0;
+    padding: 6px 8px 8px;
+    overflow: visible;
+    transform: scale(var(--fit-scale, 1));
+    transform-origin: top center;
+  }
+
+  body.fit-screen .topbar {
+    min-height: 66px;
+    margin-bottom: 4px;
+    padding: 2px 0 4px;
+  }
+
+  body.fit-screen .logo {
+    width: min(calc(100vw - 132px), 214px);
+    max-height: 66px;
+  }
+
+  body.fit-screen .icon-button,
+  body.fit-screen .demo-reset {
+    min-width: 36px;
+    min-height: 34px;
+    padding: 0 6px;
+    font-size: 0.58rem;
+  }
+
+  body.fit-screen .hero-panel {
+    gap: 4px;
+  }
+
+  body.fit-screen .character-stage {
+    aspect-ratio: 2.16 / 1;
+  }
+
+  body.fit-screen .tune-overlay {
+    padding: 5px 7px;
+  }
+
+  body.fit-screen .tune-overlay strong {
+    font-size: 0.96rem;
+  }
+
+  body.fit-screen .tune-overlay p {
+    margin-top: 2px;
+    font-size: 0.66rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  body.fit-screen .readout-card {
+    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr) !important;
+    gap: 6px;
+    padding: 6px 7px;
+  }
+
+  body.fit-screen .string-row strong {
+    font-size: clamp(2rem, 10.4vw, 2.55rem);
+  }
+
+  body.fit-screen .state-line h1 {
+    font-size: clamp(1rem, 5vw, 1.28rem) !important;
+  }
+
+  body.fit-screen .mode-row {
+    gap: 5px;
+    margin-top: 5px;
+    padding: 5px;
+  }
+
+  body.fit-screen .string-pad {
+    gap: 4px;
+    margin-top: 5px;
+    padding: 4px;
+  }
+
+  body.fit-screen .string-button {
+    min-height: 45px;
+  }
+
+  body.fit-screen .meter-panel {
+    min-height: 132px;
+    margin-top: 5px;
+    padding: 5px 7px 6px;
+  }
+
+  body.fit-screen .arc-meter {
+    height: 68px;
+    margin-bottom: 3px;
+  }
+
+  body.fit-screen .readings-grid div {
+    padding: 4px 6px;
+  }
+
+  body.fit-screen .readings-grid strong {
+    font-size: 0.92rem;
+  }
+
+  body.fit-screen .demo-panel {
+    display: block;
+    margin-top: 5px;
+    padding: 5px 7px;
+  }
+
+  body.fit-screen .demo-header strong {
+    font-size: 0.68rem;
+  }
+
+  body.fit-screen .demo-slider {
+    margin-top: 4px;
+  }
+
+  body.fit-screen .status-text {
+    display: block;
+    min-height: 15px;
+    margin: 5px 2px 0;
+    font-size: 0.62rem;
+    line-height: 1.1;
   }
 }
